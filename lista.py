@@ -1,29 +1,45 @@
 class Elemento:
     def __init__(self, dado):
-        self.__dado = dado
-        self.__anterior = None
-        self.__proximo = None
+        self.dado = dado
+        self.anterior = None
+        self.proximo = None
 
-    @property
-    def dado(self):
-        return self.__dado
 
-    @dado.setter
-    def dado(self, novo_valor):
-        self.__dado = novo_valor
+class ListaDuplamenteEncadeada:
+    def __init__(self):
+        self.primeiro = None
+        self.ultimo = None
+        self.cursor = None
+        self.tamanho = 0
 
-    @property
-    def anterior(self):
-        return self.__anterior
+    def vazia(self):
+        return self.primeiro is None
 
-    @anterior.setter
-    def anterior(self, novo_valor):
-        self.__anterior = novo_valor
 
-    @property
-    def proximo(self):
-        return self.__proximo
+    def cheia(self):
+        return False
 
-    @proximo.setter
-    def fim(self, novo_valor):
-        self.__proximo = novo_valor 
+    def inserir_como_primeiro(self, novo):
+        novo_elemento = Elemento(novo)
+        if self.vazia():
+            self.primeiro = novo_elemento
+            self.ultimo = novo_elemento
+        else:
+            novo_elemento.proximo = self.primeiro
+            self.primeiro.anterior = novo_elemento
+            self.primeiro = novo_elemento
+
+        self.cursor = novo_elemento
+
+
+    def inserir_como_ultimo(self, novo):
+        novo_elemento = Elemento(novo)
+        if self.vazia():
+            self.primeiro = novo_elemento
+            self.ultimo = novo_elemento
+        else:
+            self.ultimo.proximo = novo_elemento
+            novo_elemento.anterior = self.ultimo
+            self.ultimo = novo_elemento
+
+        self.cursor = novo_elemento
